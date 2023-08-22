@@ -3,14 +3,25 @@ import pandas as pd
 import FinanceDataReader as fdr
 import datetime 
 
-st.title('사전 학습 2강')
+st.title('사전 학습 2강 대전9기- 노윤식')
 st.header('주가 데이터 시각화')
 st.text('*[사전 학습 1강] - [과제]*')
 st.header('')
 
 st.divider()
-st.subheader('설정창')
+st.subheader('상위 100개 기업')
 st.title('')
+
+df_krx = fdr.StockListing('KRX')
+
+st.dataframe(df_krx.head(100))
+
+# 이름으로 코드를 찾기위한 단순한 함수
+def codeFromName(name):
+    row = df_krx[df_krx['Name'] == name]
+    if not row.empty:
+        return row['Symbol'].values[0]
+    return None 
 
 stock_code=st.text_input('종목 코드 입력 :','005380')
 st.subheader('')
